@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS order_items (
 
 let settings = db.prepare("SELECT * FROM settings WHERE id=1").get();
 if (!settings) {
-  const user = process.env.ADMIN_USER || "admin";
-  const pass = process.env.ADMIN_PASSWORD || "troque-esta-senha";
+  const user = process.env.ADMIN_USER || "internacional";
+  const pass = process.env.ADMIN_PASSWORD || "pods0507";
   const hash = bcrypt.hashSync(pass,10);
   db.prepare(`INSERT INTO settings
     (id,store_name,store_subtitle,admin_user,admin_password_hash)
