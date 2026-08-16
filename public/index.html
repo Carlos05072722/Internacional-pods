@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <title>International</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="storeView">
+    <nav class="topbar">
+      <div class="logo">
+        <div class="logoMark">I</div>
+        <div><strong id="storeName">International</strong><span id="storeSubtitle">Qualidade, preço e atendimento</span></div>
+      </div>
+      <div class="navActions">
+        <button class="ghost" id="adminOpen">⚙ Administrador</button>
+        <button class="cartButton" id="cartOpen">Carrinho <span id="cartCount">0</span></button>
+      </div>
+    </nav>
+
+    <main class="store">
+      <section class="hero">
+        <div class="heroText">
+          <span class="eyebrow">LOJA OFICIAL</span>
+          <h1 id="heroTitle">Os melhores produtos em um só lugar</h1>
+          <p id="heroText">Compre com praticidade e fale direto com a nossa equipe.</p>
+          <div class="heroActions">
+            <button class="primary" onclick="document.querySelector('#products').scrollIntoView()">Ver produtos</button>
+            <a id="whatsappHero" class="secondary" href="#" target="_blank">Falar no WhatsApp</a>
+          </div>
+        </div>
+        <div class="heroVisual">
+          <div class="glassCard">
+            <span>ATENDIMENTO</span>
+            <strong>Rápido. Simples.<br>Profissional.</strong>
+            <small id="deliveryText">Consulte taxa e região de entrega</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust">
+        <div><b>✓</b><span><strong>Compra fácil</strong><small>Escolha e finalize em minutos</small></span></div>
+        <div><b>◈</b><span><strong>Pagamento flexível</strong><small>Pix, cartão, dinheiro ou combinado</small></span></div>
+        <div><b>↗</b><span><strong>Atendimento direto</strong><small>Contato pelo WhatsApp</small></span></div>
+      </section>
+
+      <section class="productsSection" id="products">
+        <div class="sectionHead">
+          <div><span class="eyebrow">CATÁLOGO</span><h2>Produtos disponíveis</h2></div>
+          <input id="search" placeholder="Buscar produto...">
+        </div>
+        <div id="productGrid" class="productGrid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="logo compact"><div class="logoMark">I</div><strong>International</strong></div>
+      <span>Loja oficial • Atendimento e vendas</span>
+    </footer>
+  </div>
+
+  <div id="cartDrawer" class="drawer">
+    <div class="drawerPanel">
+      <div class="drawerHead"><div><span class="eyebrow">SEU PEDIDO</span><h2>Carrinho</h2></div><button class="iconBtn" id="cartClose">×</button></div>
+      <div id="cartItems" class="cartItems"></div>
+      <div class="cartTotal"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div>
+      <button class="primary wide" id="checkoutOpen">Continuar para pagamento</button>
+    </div>
+  </div>
+
+  <div id="checkoutModal" class="modal">
+    <div class="modalCard checkoutCard">
+      <button class="closeFloat" data-close="checkoutModal">×</button>
+      <span class="eyebrow">FINALIZAR COMPRA</span>
+      <h2>Dados do pedido</h2>
+      <div class="formGrid">
+        <label>Seu nome<input id="customerName" placeholder="Nome completo"></label>
+        <label>WhatsApp<input id="customerPhone" placeholder="(00) 00000-0000"></label>
+        <label>Forma de pagamento
+          <select id="paymentMethod">
+            <option value="pix">Pix</option>
+            <option value="card">Cartão</option>
+            <option value="cash">Dinheiro</option>
+            <option value="credit">Pagar depois / combinado</option>
+          </select>
+        </label>
+        <label id="dueWrap" class="hidden">Data combinada<input id="dueDate" type="date"></label>
+      </div>
+      <label>Observação<textarea id="orderNotes" placeholder="Ex.: endereço, referência, sabor/modelo desejado..."></textarea></label>
+      <div class="checkoutSummary"><span>Total do pedido</span><strong id="checkoutTotal">R$ 0,00</strong></div>
+      <button class="primary wide" id="placeOrder">Confirmar pedido</button>
+      <p class="fine">O pedido será registrado e a loja poderá confirmar os detalhes pelo WhatsApp.</p>
+    </div>
+  </div>
+
+  <div id="successModal" class="modal">
+    <div class="modalCard centered">
+      <div class="successIcon">✓</div>
+      <span class="eyebrow">PEDIDO REGISTRADO</span>
+      <h2>Pedido enviado com sucesso</h2>
+      <p id="successText">Seu pedido foi registrado.</p>
+      <div id="pixBox" class="pixBox hidden"></div>
+      <a id="successWhatsapp" class="primary linkBtn" target="_blank">Continuar no WhatsApp</a>
+      <button class="ghost dark" data-close="successModal">Fechar</button>
+    </div>
+  </div>
+
+  <div id="adminLoginModal" class="modal">
+    <div class="modalCard loginCard">
+      <button class="closeFloat" data-close="adminLoginModal">×</button>
+      <div class="adminBadge">ÁREA RESTRITA</div>
+      <h2>Administrador</h2>
+      <p class="muted">Entre para gerenciar estoque, vendas, lucro e configurações.</p>
+      <label>Usuário<input id="adminUser" autocomplete="username"></label>
+      <label>Senha<input id="adminPassword" type="password" autocomplete="current-password"></label>
+      <button class="primary wide" id="loginBtn">Entrar no painel</button>
+      <p id="loginError" class="error"></p>
+    </div>
+  </div>
+
+  <div id="adminView" class="adminView hidden">
+    <aside class="sidebar">
+      <div class="adminLogo"><div class="logoMark">I</div><div><strong>International</strong><small>Administração</small></div></div>
+      <button class="side active" data-page="dashboard">⌂ <span>Visão geral</span></button>
+      <button class="side" data-page="productsAdmin">□ <span>Estoque</span></button>
+      <button class="side" data-page="ordersAdmin">≡ <span>Pedidos</span></button>
+      <button class="side" data-page="creditsAdmin">$ <span>Fiados</span></button>
+      <button class="side" data-page="settingsAdmin">⚙ <span>Configurações</span></button>
+      <div class="sideBottom">
+        <button class="side" id="backStore">← <span>Ver loja</span></button>
+        <button class="side dangerText" id="logoutBtn">↪ <span>Sair</span></button>
+      </div>
+    </aside>
+
+    <main class="adminMain">
+      <header class="adminHeader">
+        <div><span class="eyebrow">PAINEL ADMINISTRATIVO</span><h1 id="adminTitle">Visão geral</h1></div>
+        <div class="statusPill">● Sistema online</div>
+      </header>
+
+      <section id="dashboard" class="adminPage active">
+        <div class="adminHero">
+          <div><span class="eyebrow">RESUMO DO NEGÓCIO</span><h2>Controle completo em um só lugar.</h2><p>Informações internas protegidas e separadas da loja dos clientes.</p></div>
+        </div>
+        <div class="statGrid">
+          <div class="stat"><small>Faturamento recebido</small><strong id="statRevenue">R$ 0,00</strong></div>
+          <div class="stat"><small>Lucro acumulado</small><strong id="statProfit">R$ 0,00</strong></div>
+          <div class="stat"><small>Contas a receber</small><strong id="statReceivable">R$ 0,00</strong></div>
+          <div class="stat"><small>Estoque baixo</small><strong id="statLow">0</strong></div>
+        </div>
+        <div class="adminPanel"><div class="panelHead"><h3>Pedidos recentes</h3></div><div id="recentOrders"></div></div>
+      </section>
+
+      <section id="productsAdmin" class="adminPage">
+        <div class="adminPanel">
+          <div class="panelHead"><div><span class="eyebrow">ESTOQUE</span><h3>Cadastrar produto</h3></div></div>
+          <div class="formGrid three">
+            <label>Nome<input id="pName"></label>
+            <label>Categoria<input id="pCategory"></label>
+            <label>SKU<input id="pSku"></label>
+            <label>Custo<input id="pCost" type="number" step="0.01"></label>
+            <label>Preço de venda<input id="pPrice" type="number" step="0.01"></label>
+            <label>Quantidade<input id="pStock" type="number"></label>
+            <label>Estoque mínimo<input id="pMin" type="number" value="2"></label>
+            <label class="span2">URL da imagem<input id="pImage" placeholder="https://..."></label>
+          </div>
+          <label>Descrição<textarea id="pDescription"></textarea></label>
+          <button class="primary" id="addProductBtn">Adicionar produto</button>
+        </div>
+        <div class="adminPanel"><div class="panelHead"><h3>Produtos cadastrados</h3></div><div id="adminProductList"></div></div>
+      </section>
+
+      <section id="ordersAdmin" class="adminPage">
+        <div class="adminPanel"><div class="panelHead"><div><span class="eyebrow">VENDAS</span><h3>Todos os pedidos</h3></div></div><div id="orderList"></div></div>
+      </section>
+
+      <section id="creditsAdmin" class="adminPage">
+        <div class="adminPanel"><div class="panelHead"><div><span class="eyebrow">CONTAS A RECEBER</span><h3>Fiados em aberto</h3></div></div><p class="muted">Os lembretes podem ser enviados automaticamente 2 dias antes e no dia do vencimento quando o WhatsApp Cloud API estiver configurado.</p><div id="creditList"></div></div>
+      </section>
+
+      <section id="settingsAdmin" class="adminPage">
+        <div class="adminPanel">
+          <div class="panelHead"><div><span class="eyebrow">LOJA</span><h3>Personalização</h3></div></div>
+          <div class="formGrid">
+            <label>Nome da loja<input id="sName"></label>
+            <label>Frase abaixo do nome<input id="sSubtitle"></label>
+            <label>WhatsApp<input id="sWhatsapp"></label>
+            <label>Chave Pix<input id="sPix"></label>
+            <label class="span2">Texto de entrega<input id="sDelivery"></label>
+            <label class="span2">Título principal<input id="sHeroTitle"></label>
+            <label class="span2">Texto principal<textarea id="sHeroText"></textarea></label>
+          </div>
+          <button class="primary" id="saveSettings">Salvar configurações</button>
+        </div>
+        <div class="adminPanel">
+          <div class="panelHead"><div><span class="eyebrow">SEGURANÇA</span><h3>Usuário e senha</h3></div></div>
+          <div class="formGrid">
+            <label>Novo usuário<input id="newAdminUser"></label>
+            <label>Senha atual<input id="currentPassword" type="password"></label>
+            <label>Nova senha<input id="newPassword" type="password"></label>
+          </div>
+          <button class="primary" id="changePassword">Alterar acesso</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
